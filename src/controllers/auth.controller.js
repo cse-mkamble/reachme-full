@@ -1,5 +1,6 @@
 const Users = require('../models/user.model')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const sendMail = require('../utils/sendEmail')
 
 const { CLIENT_URL, ICON_IMAGE } = process.env
@@ -85,7 +86,8 @@ const authController = {
                 </div>
             `
             sendMail({ to: email, subject: txt, text: message })
-            res.json({ msg: "Register Success!", access_token, user: { ...newUser._doc, password: '' } })
+            // res.json({ msg: "Account has been activated! Please, Login now."})
+            res.json({ msg: 'Register Success!', access_token, user: { ...newUser._doc, password: '' } })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
@@ -161,6 +163,10 @@ const authController = {
 function validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+}
+
+const createActivationToken = (payload) => {
+    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, { expiresIn: '5m' })
 }
 
 const createAccessToken = (payload) => {
