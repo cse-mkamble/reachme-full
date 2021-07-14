@@ -25,16 +25,6 @@ io.on('connection', socket => {
 // Create peer server
 ExpressPeerServer(http, { path: '/' })
 
-
-// Routes
-app.use('/api', require('./routes/authRouter'))
-app.use('/api', require('./routes/userRouter'))
-app.use('/api', require('./routes/postRouter'))
-app.use('/api', require('./routes/commentRouter'))
-app.use('/api', require('./routes/notifyRouter'))
-app.use('/api', require('./routes/messageRouter'))
-
-
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, {
     useCreateIndex: true,
@@ -46,13 +36,20 @@ mongoose.connect(URI, {
     console.log('Connected to mongodb')
 })
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'))
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-    })
-}
+// if(process.env.NODE_ENV === 'production'){
+//     app.use(express.static('client/build'))
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+//     })
+// }
 
+// Routes
+app.use('/api', require('./routes/authRouter'))
+app.use('/api', require('./routes/userRouter'))
+app.use('/api', require('./routes/postRouter'))
+app.use('/api', require('./routes/commentRouter'))
+app.use('/api', require('./routes/notifyRouter'))
+app.use('/api', require('./routes/messageRouter'))
 
 const port = process.env.PORT || 5000
 http.listen(port, () => {
