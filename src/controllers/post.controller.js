@@ -1,6 +1,6 @@
-const Posts = require('../models/postModel')
-const Comments = require('../models/commentModel')
-const Users = require('../models/userModel')
+const Posts = require('../models/post.model')
+const Comments = require('../models/comment.model')
+const Users = require('../models/user.model')
 
 class APIfeatures {
     constructor(query, queryString){
@@ -17,7 +17,7 @@ class APIfeatures {
     }
 }
 
-const postCtrl = {
+const postController = {
     createPost: async (req, res) => {
         try {
             const { content, images } = req.body
@@ -251,4 +251,4 @@ const postCtrl = {
     },
 }
 
-module.exports = postCtrl
+module.exports = postController

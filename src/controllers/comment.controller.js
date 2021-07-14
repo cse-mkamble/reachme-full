@@ -1,8 +1,8 @@
-const Comments = require('../models/commentModel')
-const Posts = require('../models/postModel')
+const Comments = require('../models/comment.model')
+const Posts = require('../models/post.model')
 
 
-const commentCtrl = {
+const commentController = {
     createComment: async (req, res) => {
         try {
             const { postId, content, tag, reply, postUserId } = req.body
@@ -96,4 +96,4 @@ const commentCtrl = {
 }
 
 
-module.exports = commentCtrl
+module.exports = commentController

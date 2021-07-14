@@ -1,5 +1,5 @@
-const Conversations = require('../models/conversationModel')
-const Messages = require('../models/messageModel')
+const Conversations = require('../models/conversation.model')
+const Messages = require('../models/message.model')
 
 class APIfeatures {
     constructor(query, queryString){
@@ -16,7 +16,7 @@ class APIfeatures {
     }
 }
 
-const messageCtrl = {
+const messageController = {
     createMessage: async (req, res) => {
         try {
             const { sender, recipient, text, media, call } = req.body
@@ -111,4 +111,4 @@ const messageCtrl = {
 }
 
 
-module.exports = messageCtrl
+module.exports = messageController

@@ -1,7 +1,7 @@
-const Notifies = require('../models/notifyModel')
+const Notifies = require('../models/notify.model')
 
 
-const notifyCtrl = {
+const notifyController = {
     createNotify: async (req, res) => {
         try {
             const { id, recipients, url, text, content, image } = req.body
@@ -62,4 +62,4 @@ const notifyCtrl = {
 }
 
 
-module.exports = notifyCtrl
+module.exports = notifyController

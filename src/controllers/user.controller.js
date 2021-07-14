@@ -1,6 +1,6 @@
-const Users = require('../models/userModel')
+const Users = require('../models/user.model')
 
-const userCtrl = {
+const userController = {
     searchUser: async (req, res) => {
         try {
             const users = await Users.find({username: {$regex: req.query.username}})
@@ -98,4 +98,4 @@ const userCtrl = {
 }
 
 
-module.exports = userCtrl
+module.exports = userController

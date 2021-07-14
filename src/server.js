@@ -44,12 +44,12 @@ mongoose.connect(URI, {
 // }
 
 // Routes
-app.use('/api', require('./routes/authRouter'))
-app.use('/api', require('./routes/userRouter'))
-app.use('/api', require('./routes/postRouter'))
-app.use('/api', require('./routes/commentRouter'))
-app.use('/api', require('./routes/notifyRouter'))
-app.use('/api', require('./routes/messageRouter'))
+app.use('/api', require('./routes/auth.routes'))
+app.use('/api', require('./routes/user.routes'))
+app.use('/api', require('./routes/post.routes'))
+app.use('/api', require('./routes/comment.routes'))
+app.use('/api', require('./routes/notify.routes'))
+app.use('/api', require('./routes/message.routes'))
 
 const port = process.env.PORT || 5000
 http.listen(port, () => {
