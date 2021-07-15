@@ -57,6 +57,7 @@ const authController = {
         try {
             const { activation_token } = req.body
             const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
+            if(!user) return res.status(400).json({ msg: "This user not exists." })
             const { fullname, username, email, password, gender } = user
             const newUser = new Users({ fullname, username, email, password, gender })
             const access_token = createAccessToken({id: newUser._id})
@@ -166,7 +167,7 @@ function validateEmail(email) {
 }
 
 const createActivationToken = (payload) => {
-    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, { expiresIn: '5m' })
+    return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, { expiresIn: '10m' })
 }
 
 const createAccessToken = (payload) => {

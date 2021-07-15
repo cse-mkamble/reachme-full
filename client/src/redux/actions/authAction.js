@@ -1,7 +1,7 @@
 import { GLOBALTYPES } from './globalTypes'
 import { postDataAPI } from '../../utils/fetchData'
 import valid from '../../utils/valid'
-
+import axios from 'axios'
 
 export const login = (data) => async (dispatch) => {
     try {
@@ -94,6 +94,10 @@ export const register = (data) => async (dispatch) => {
             } 
         })
     }
+}
+
+export const activationEmail = (activation_token) => async (dispatch) => {
+    console.log(activation_token)
 }
 
 
