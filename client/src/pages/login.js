@@ -32,7 +32,10 @@ const Login = () => {
     return (
         <div className="auth_page">
             <form onSubmit={handleSubmit}>
-                <h3 className="text-uppercase text-center mb-4">V-Network</h3>
+
+                <div style={{ textAlign: "center" }} >
+                    <img style={{ width: '64px', height: '64px', margin: '10px' }} src="https://res.cloudinary.com/mayurkamble/image/upload/v1625477279/icon/ReachMe2_pnioxk.png" />
+                </div>
 
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Email address</label>
@@ -65,7 +68,7 @@ const Login = () => {
 
                 </div>
 
-                <button type="submit" className="btn btn-dark w-100"
+                <button type="submit" className="btn btn-primary w-100"
                     disabled={email && password ? false : true}>
                     Login
                 </button>

@@ -22,6 +22,10 @@ code {
   filter: invert(1);
 }
 
+a:hover{
+  text-decoration: none;
+}
+
 .App {
   width: 100%;
   min-height: 100vh;
@@ -29,7 +33,6 @@ code {
 }
 
 .main {
-  max-width: 1000px;
   width: 100%;
   min-height: 100vh;
   margin: auto;

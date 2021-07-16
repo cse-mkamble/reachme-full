@@ -11,9 +11,12 @@ const Header = () => {
             bg-light justify-content-between align-middle">
 
                 <Link to="/" className="logo">
-                    <h1 className="navbar-brand text-uppercase p-0 m-0"
-                    onClick={() => window.scrollTo({top: 0})}>
-                        V-Network
+                    <h1 style={{ display: "flex", color: '#636060' }}  className="navbar-brand p-0 m-0"
+                        onClick={() => window.scrollTo({ top: 0 })}>
+                        <div style={{ textAlign: "center", display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                            <img style={{ width: '26px', height: '26px' }} src="https://res.cloudinary.com/mayurkamble/image/upload/v1625477279/icon/ReachMe2_pnioxk.png" />
+                        </div>
+                        eachMe
                     </h1>
                 </Link>
 
