@@ -91,6 +91,7 @@ function App() {
             <Route exact path="/register" component={Register} />
 
             <Route exact path="/user/activation/:activation_token" component={ActivationEmail} />
+            
             <Route exact path="/forgot_password" component={ForgotPass} />
             <Route exact path="/user/reset/:access_token" component={ResetPass} />
 

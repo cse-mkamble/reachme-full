@@ -48,7 +48,7 @@ const authController = {
                 </div>
             `
             sendMail({ to: email, subject: txt, text: message })
-            res.json({ msg: "Register Success! Please activate your email to start." })
+            res.json({ msg: "Please activate your email to start." })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
         }
@@ -124,6 +124,84 @@ const authController = {
             })
         } catch (err) {
             return res.status(500).json({msg: err.message})
+        }
+    },
+    forgotPassword: async (req, res) => {
+        try {
+            const { email } = req.body
+            const user = await Users.findOne({ email })
+            if (!user) return res.status(400).json({ msg: "This email does not exist." })
+            const access_token = createAccessToken({ id: user._id, email })
+            const url = `${CLIENT_URL}/user/reset/${access_token}`
+            // sendMail(email, url, "Reset your password")
+            const txt = 'Reset your password'
+            const emaillMessageButtonName = 'Reset your password'
+            const message = `
+                <div style=" color: #323232; " >
+                    <div style=" max-width: 600px; margin:auto; font-size: 110%; background: #eaeaea87; padding: 10px; ">
+                        <div style=" text-align: center; ">
+                            <img style=" width: 64px; height: 64px; margin: 10px 0 20px 0; " src=${ICON_IMAGE} />
+                        </div>
+                        <div style=" padding: 40px; background: #fff; border-radius: 10px; ">
+                            <h2 style="text-align: center; ">Reset your password</h2>
+                            <p>Someone (hopefully you) has requested a password reset for your ReachMe account.
+                                Just click the button below to set a new password:
+                            </p>
+                            <div style=" text-align: center; ">
+                                <a href=${url} style="background: #2196f3; border-radius: 4px; text-decoration: none; color: rgb(255, 255, 255); padding: 10px 30px; display: inline-block;">${emaillMessageButtonName}</a>
+                            </div>
+                            <p>If the button doesn't work for any reason, you can also click on the link below:</p>
+                            <div>${url}</div>
+                            <p>If you don't wish to reset your password, disregard this email and no action will be taken.</p>
+                            <p style=" margin: 30px auto 4px auto; " >The ReachMe Team</p>
+                            <div>${CLIENT_URL}</div>
+                        </div>
+                        <div style=" color: rgb(165, 164, 164); text-align: left; margin: 20px auto; " >
+                            <p style=" font-size: 12px; margin: 10px 20px; " >ReachMe is the social media platform for rapid scaling of multi-platform applications.</p>
+                            <p style=" font-size: 12px; margin: 10px 20px; " >If you encounter any problem, please contact us at cse.mkamble@gmail.com .</p>
+                        </div>
+                    </div>
+                </div>
+            `
+            sendMail({ to: email, subject: txt, text: message })
+            res.json({ msg: "Re-send the password, please check your email." })
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
+        }
+    },
+    resetPassword: async (req, res) => {
+        try {
+            const { password } = req.body
+            // console.log(req.user)
+            const passwordHash = await bcrypt.hash(password, 12)
+
+            await Users.findOneAndUpdate({ _id: req.user.id }, {
+                password: passwordHash
+            })
+            
+            const url = `${CLIENT_URL}/`
+            const txt = 'Password Successfully changed'
+            const emaillMessageButtonName = 'CONTINUE'
+            const message = `
+                <div style=" color: #323232; " >
+                    <div style=" max-width: 600px; margin:auto; font-size: 110%; text-align: center; background: #eaeaea87; padding: 10px; ">
+                        <div style=" text-align: center; ">
+                            <img style=" width: 64px; height: 64px; margin: 10px 0 20px 0; " src=${ICON_IMAGE} />
+                        </div>
+                        <div style=" text-align: center; padding: 40px; background: #fff; border-radius: 10px; ">
+                            <img style=" width: 100px; height: 100px; margin: auto; " src="https://res.cloudinary.com/mayurkamble/image/upload/v1625314150/icon/green_check_mark_icon_flat_yzusy1.png" />
+                            <h2 style=" margin: 0; ">Password Successfully Changed</h2>
+                            <p style=" color: rgb(165, 164, 164); margin: 5px; " >You have successfully changed your password</p>
+                            <a href=${url} style="background: #2196f3; border-radius: 4px; text-decoration: none; color: rgb(255, 255, 255); padding: 10px 30px; display: inline-block;">${emaillMessageButtonName}</a>
+                        </div>
+                    </div>
+                </div>
+            `
+            sendMail({ to: req.user.email, subject: txt, text: message })
+
+            res.json({ msg: "Password successfully changed!" })
+        } catch (err) {
+            return res.status(500).json({ msg: err.message })
         }
     },
     logout: async (req, res) => {
