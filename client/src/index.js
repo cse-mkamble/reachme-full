@@ -11,7 +11,7 @@ ReactDOM.render(
       <App />
     </DataProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('ios-app')
 );
 
 // If you want to start measuring performance in your app, pass a function

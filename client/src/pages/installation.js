@@ -22,7 +22,7 @@ const Installation = () => {
             </div>
             <hr />
 
-            <div style={{ display: 'flex', justifyContent: 'center', padding: '10px' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
                 <div style={{ maxWidth: '700px' }}>
                     <div style={{ paddingTop: '10px' }}>
                         <div style={{ margin: '10px 0' }}><h3>Installation</h3></div>
